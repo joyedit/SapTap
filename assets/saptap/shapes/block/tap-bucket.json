@@ -1,0 +1,181 @@
+{
+  "editor": {
+    "allAngles": false,
+    "singleTexture": false
+  },
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textures": {
+    "metal": "block/metal",
+    "wood": "game:block/wood/planks/oak",
+    "woodside": "game:block/wood/debarked/oak"
+  },
+  "elements": [
+    {
+      "name": "TapBody",
+      "from": [ 6, 6, 0 ],
+      "to": [ 10, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 4, 4 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 4, 4 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 4, 4 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 4, 4 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 4, 4 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 4, 4 ] }
+      }
+    },
+    {
+      "name": "Spout",
+      "from": [ 7, 5, 3 ],
+      "to": [ 9, 6, 5 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 2, 1 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 2, 1 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 2, 1 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 2, 1 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 2, 2 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 2, 2 ] }
+      }
+    },
+    {
+      "name": "BucketBottom",
+      "comment": "Solid floor of the bucket",
+      "from": [ 5, 0, 3 ],
+      "to": [ 11, 0.5, 9 ],
+      "faces": {
+        "north": { "texture": "#wood", "uv": [ 0, 0, 6, 0.5 ] },
+        "east": { "texture": "#wood", "uv": [ 0, 0, 6, 0.5 ] },
+        "south": { "texture": "#wood", "uv": [ 0, 0, 6, 0.5 ] },
+        "west": { "texture": "#wood", "uv": [ 0, 0, 6, 0.5 ] },
+        "up": { "texture": "#wood", "uv": [ 0, 0, 6, 6 ] },
+        "down": { "texture": "#wood", "uv": [ 0, 0, 6, 6 ] }
+      }
+    },
+    {
+      "name": "BucketWallNorth",
+      "comment": "North wall of bucket",
+      "from": [ 4.5, 0.5, 2.5 ],
+      "to": [ 11.5, 9, 3.5 ],
+      "faces": {
+        "north": { "texture": "#woodside", "uv": [ 2, 3, 9, 12 ] },
+        "east": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "south": { "texture": "#woodside", "uv": [ 2, 3, 9, 12 ] },
+        "west": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "up": { "texture": "#wood", "uv": [ 2, 0, 9, 1 ] },
+        "down": { "texture": "#wood", "uv": [ 2, 0, 9, 1 ] }
+      }
+    },
+    {
+      "name": "BucketWallSouth",
+      "comment": "South wall of bucket",
+      "from": [ 4.5, 0.5, 8.5 ],
+      "to": [ 11.5, 9, 9.5 ],
+      "faces": {
+        "north": { "texture": "#woodside", "uv": [ 2, 3, 9, 12 ] },
+        "east": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "south": { "texture": "#woodside", "uv": [ 2, 3, 9, 12 ] },
+        "west": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "up": { "texture": "#wood", "uv": [ 2, 0, 9, 1 ] },
+        "down": { "texture": "#wood", "uv": [ 2, 0, 9, 1 ] }
+      }
+    },
+    {
+      "name": "BucketWallWest",
+      "comment": "West wall of bucket",
+      "from": [ 4.5, 0.5, 3.5 ],
+      "to": [ 5.5, 9, 8.5 ],
+      "faces": {
+        "north": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "east": { "texture": "#woodside", "uv": [ 2, 3, 7, 12 ] },
+        "south": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "west": { "texture": "#woodside", "uv": [ 2, 3, 7, 12 ] },
+        "up": { "texture": "#wood", "uv": [ 0, 2, 1, 7 ] },
+        "down": { "texture": "#wood", "uv": [ 0, 2, 1, 7 ] }
+      }
+    },
+    {
+      "name": "BucketWallEast",
+      "comment": "East wall of bucket",
+      "from": [ 10.5, 0.5, 3.5 ],
+      "to": [ 11.5, 9, 8.5 ],
+      "faces": {
+        "north": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "east": { "texture": "#woodside", "uv": [ 2, 3, 7, 12 ] },
+        "south": { "texture": "#woodside", "uv": [ 0, 3, 1, 12 ] },
+        "west": { "texture": "#woodside", "uv": [ 2, 3, 7, 12 ] },
+        "up": { "texture": "#wood", "uv": [ 0, 2, 1, 7 ] },
+        "down": { "texture": "#wood", "uv": [ 0, 2, 1, 7 ] }
+      }
+    },
+    {
+      "name": "BucketRim",
+      "comment": "Metal band around the top",
+      "from": [ 4, 8.5, 2 ],
+      "to": [ 12, 9, 10 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 8, 0.5 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 8, 0.5 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 8, 0.5 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 8, 0.5 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 8, 8 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 8, 8 ] }
+      }
+    },
+    {
+      "name": "BucketBandLower",
+      "comment": "Lower metal band for reinforcement",
+      "from": [ 4.5, 3, 2.5 ],
+      "to": [ 11.5, 3.5, 9.5 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 7, 0.5 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 7, 0.5 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 7, 0.5 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 7, 0.5 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 7, 7 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 7, 7 ] }
+      }
+    },
+    {
+      "name": "HandleLeft",
+      "comment": "Left bail handle mount",
+      "from": [ 4, 9, 5.5 ],
+      "to": [ 4.5, 11, 6.5 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 0.5, 2 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 1, 2 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 0.5, 2 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 1, 2 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 0.5, 1 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 0.5, 1 ] }
+      }
+    },
+    {
+      "name": "HandleRight",
+      "comment": "Right bail handle mount",
+      "from": [ 11.5, 9, 5.5 ],
+      "to": [ 12, 11, 6.5 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 0.5, 2 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 1, 2 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 0.5, 2 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 1, 2 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 0.5, 1 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 0.5, 1 ] }
+      }
+    },
+    {
+      "name": "HandleBar",
+      "comment": "Bail handle crossbar",
+      "from": [ 4.5, 11, 5.5 ],
+      "to": [ 11.5, 11.5, 6.5 ],
+      "faces": {
+        "north": { "texture": "#metal", "uv": [ 0, 0, 7, 0.5 ] },
+        "east": { "texture": "#metal", "uv": [ 0, 0, 1, 0.5 ] },
+        "south": { "texture": "#metal", "uv": [ 0, 0, 7, 0.5 ] },
+        "west": { "texture": "#metal", "uv": [ 0, 0, 1, 0.5 ] },
+        "up": { "texture": "#metal", "uv": [ 0, 0, 7, 1 ] },
+        "down": { "texture": "#metal", "uv": [ 0, 0, 7, 1 ] }
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "code",
+  "modid": "saptap",
+  "name": "SapTap",
+  "authors": ["Feyd"],
+  "description": "Adds craftable copper sap taps for harvesting sap from pine trees. Attach a bucket, wait for it to fill, and collect. Features seasonal collection rates and a two-tap-per-tree limit.",
+  "version": "1.0.0",
+  "dependencies": {
+    "game": "1.19.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ingredientPattern": "P_,MI",
+  "ingredients": {
+    "P": { "type": "item", "code": "game:ingot-copper" },
+    "M": { "type": "item", "code": "game:ingot-copper" },
+    "I": { "type": "item", "code": "game:ingot-copper" }
+  },
+  "width": 2,
+  "height": 2,
+  "output": { "type": "block", "code": "saptap-north-empty", "quantity": 2 }
+}

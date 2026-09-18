@@ -1,66 +1,98 @@
 {
-  "code": "block",
+  "code": "saptap",
   "class": "BlockSapTap",
   "entityClass": "BlockEntitySapTap",
+
+  "//": "The shape is authored for the 'north' variant: 'side' names the direction the tap faces INTO the tree, so for -north the bark plane is z=0 and the tube points south. rotateY +90 maps south->east->north->west, same convention vanilla uses for the toolrack.",
+
   "variantgroups": [
+    {
+      "code": "metal",
+      "states": ["copper", "tinbronze", "bismuthbronze", "blackbronze", "brass", "gold", "silver", "lead", "bismuth", "molybdochalkos", "iron", "meteoriciron", "steel"]
+    },
     {
       "code": "side",
       "states": ["north", "east", "south", "west"]
     }
   ],
-  "behaviors": [
-    { "name": "HorizontalOrientable" }
-  ],
-  "blockmaterial": "Metal",
-  "drawtype": "cube",
-  "sidesolid": {
-    "all": false
-  },
-  "sideopaque": {
-    "all": false
-  },
-  "collisionbox": {
-    "x1": 0.25,
-    "y1": 0.25,
-    "z1": 0.25,
-    "x2": 0.75,
-    "y2": 0.75,
-    "z2": 0.75
-  },
-  "selectionbox": {
-    "x1": 0.25,
-    "y1": 0.25,
-    "z1": 0.25,
-    "x2": 0.75,
-    "y2": 0.75,
-    "z2": 0.75
+
+  "drawtype": "json",
+  "shapeByType": {
+    "*-north": { "base": "saptap:block/saptap", "rotateY": 0 },
+    "*-west":  { "base": "saptap:block/saptap", "rotateY": 90 },
+    "*-south": { "base": "saptap:block/saptap", "rotateY": 180 },
+    "*-east":  { "base": "saptap:block/saptap", "rotateY": 270 }
   },
   "textures": {
-    "all": { "base": "game:block/metal/ingot/copper" }
+    "metal": { "base": "game:block/metal/ingot/{metal}" }
   },
+
+  "blockmaterial": "Metal",
+  "materialDensity": 8000,
   "resistance": 2,
-  "creativeinventory": {
-    "general": ["*"],
-    "decorative": ["*"]
+  "lightAbsorption": 0,
+  "rainPermeable": true,
+  "faceCullMode": "NeverCull",
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+
+  "collisionbox": null,
+  "selectionbox": {
+    "x1": 0.34, "y1": 0.55, "z1": 0.0, "x2": 0.66, "y2": 0.96, "z2": 0.63,
+    "rotateYByType": {
+      "*-north": 0,
+      "*-west": 90,
+      "*-south": 180,
+      "*-east": 270
+    }
   },
+
+  "sounds": {
+    "place": "game:block/anvil",
+    "hit": "game:block/anvil",
+    "break": "game:block/anvil",
+    "walk": "game:walk/stone"
+  },
+
+  "attributes": {
+    "handbook": {
+      "groupBy": ["saptap-*"]
+    }
+  },
+
+  "drops": [
+    { "type": "block", "code": "saptap-{metal}-north" }
+  ],
+
+  "creativeinventory": {
+    "general": ["*-north"],
+    "decorative": ["*-north"]
+  },
+
+  "//transforms": "Origin is the shape's visual centre; the translations bring that centre back to the middle of the render slot.",
+
   "guiTransform": {
-    "rotation": { "x": -22.5, "y": 135, "z": 0 },
-    "origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
-    "scale": 2.5
+    "translation": { "x": 0, "y": -0.27, "z": 0.29 },
+    "rotation": { "x": -14, "y": -125, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.77, "z": 0.21 },
+    "scale": 2.2
   },
   "fpHandTransform": {
-    "translation": { "x": 0, "y": 0.4, "z": 0 },
-    "rotation": { "x": 0, "y": 0, "z": 0 },
-    "scale": 2
+    "translation": { "x": -0.15, "y": -0.35, "z": 0 },
+    "rotation": { "x": 0, "y": -45, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.77, "z": 0.21 },
+    "scale": 1.5
   },
   "tpHandTransform": {
-    "translation": { "x": -0.8, "y": -0.65, "z": -0.5 },
-    "rotation": { "x": 90, "y": 0, "z": 0 },
-    "scale": 0.6
+    "translation": { "x": -0.6, "y": -0.9, "z": -0.3 },
+    "rotation": { "x": 0, "y": -90, "z": 0 },
+    "origin": { "x": 0.5, "y": 0.77, "z": 0.21 },
+    "scale": 0.8
   },
   "groundTransform": {
-    "translation": { "x": 0, "y": 0, "z": 0 },
+    "translation": { "x": 0, "y": -0.27, "z": 0.29 },
     "rotation": { "x": 0, "y": 0, "z": 0 },
-    "scale": 3
+    "origin": { "x": 0.5, "y": 0.77, "z": 0.21 },
+    "scale": 2.4
   }
 }

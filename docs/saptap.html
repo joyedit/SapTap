@@ -1,0 +1,594 @@
+<title>SapTap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper:      #EFF0E9;
+    --surface:    #F8F8F3;
+    --ink:        #1B2016;
+    --ink-2:      #4E5545;
+    --ink-3:      #797F6D;
+    --rule:       #D3D5C7;
+    --rule-strong:#B6B9A6;
+    --resin:      #A0620F;
+    --resin-soft: rgba(160, 98, 15, 0.10);
+
+    --display: "Zilla Slab", Georgia, "Times New Roman", serif;
+    --body:    "Karla", "Helvetica Neue", Arial, sans-serif;
+    --mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #14180F;
+      --surface:    #1C2116;
+      --ink:        #E7E8DC;
+      --ink-2:      #ACB29C;
+      --ink-3:      #838974;
+      --rule:       #2C3223;
+      --rule-strong:#414930;
+      --resin:      #DFA047;
+      --resin-soft: rgba(223, 160, 71, 0.13);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #14180F;
+    --surface:    #1C2116;
+    --ink:        #E7E8DC;
+    --ink-2:      #ACB29C;
+    --ink-3:      #838974;
+    --rule:       #2C3223;
+    --rule-strong:#414930;
+    --resin:      #DFA047;
+    --resin-soft: rgba(223, 160, 71, 0.13);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 47rem;
+    margin: 0 auto;
+    padding-inline: clamp(16px, 5vw, 40px);
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 1px solid var(--rule-strong);
+    background: var(--surface);
+  }
+  .masthead .wrap { padding-block: clamp(2.25rem, 6vw, 3.5rem) 1.75rem; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--resin);
+    margin: 0 0 0.75rem;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.75rem, 9vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.6rem;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-size: 1.1rem;
+    color: var(--ink-2);
+    max-width: 34em;
+    margin: 0 0 1.75rem;
+    text-wrap: pretty;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .meta b { color: var(--ink-2); font-weight: 500; }
+  .meta a { color: var(--resin); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  /* ---------- spec strip ---------- */
+
+  .specs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--rule-strong);
+    background: var(--surface);
+  }
+  .specs > div {
+    padding: 1.1rem clamp(0.6rem, 2vw, 1.1rem);
+    border-left: 1px solid var(--rule);
+  }
+  .specs > div:first-child { border-left: 0; }
+  .specs .n {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .specs .n em { font-style: normal; font-size: 0.62em; color: var(--ink-3); }
+  .specs .l {
+    display: block;
+    font-size: 0.76rem;
+    line-height: 1.35;
+    color: var(--ink-3);
+    margin-top: 0.3rem;
+  }
+  @media (max-width: 560px) {
+    .specs { grid-template-columns: repeat(2, 1fr); }
+    .specs > div:nth-child(3) { border-left: 0; }
+    .specs > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  }
+
+  /* ---------- sections ---------- */
+
+  main .wrap { padding-block: 0 4rem; }
+
+  section { padding-block: 2.75rem 0; }
+  section + section { border-top: 1px solid var(--rule); margin-top: 2.75rem; }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 4.5vw, 1.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.005em;
+    margin: 2rem 0 0.6rem;
+  }
+
+  p { margin: 0 0 1rem; max-width: 65ch; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+
+  a { color: var(--resin); }
+  strong { font-weight: 700; }
+  em.term { font-style: italic; color: var(--ink-2); }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--resin-soft);
+    color: var(--ink);
+    padding: 0.08em 0.36em;
+    border-radius: 2px;
+    word-break: break-word;
+  }
+
+  :focus-visible { outline: 2px solid var(--resin); outline-offset: 2px; }
+
+  /* ---------- recipe diagram ---------- */
+
+  .recipe {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  .slot {
+    flex: 1 1 7rem;
+    min-width: 6.5rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--surface);
+    padding: 0.7rem 0.6rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.15rem;
+  }
+  .slot b { font-size: 0.88rem; font-weight: 700; line-height: 1.25; }
+  .slot span {
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    color: var(--ink-3);
+    line-height: 1.3;
+    word-break: break-word;
+  }
+  .slot.out { border-color: var(--resin); background: var(--resin-soft); }
+  .slot.out b { color: var(--resin); }
+  .op {
+    align-self: center;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--ink-3);
+    flex: 0 0 auto;
+  }
+
+  /* ---------- tables ---------- */
+
+  .tablewrap { overflow-x: auto; margin: 1.25rem 0 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    min-width: 30rem;
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding-bottom: 0.5rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.62rem 0.9rem 0.62rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom-color: var(--rule-strong);
+    white-space: nowrap;
+  }
+  td.num, th.num {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+
+  .track {
+    display: block;
+    width: 100%;
+    min-width: 4rem;
+    height: 0.4rem;
+    background: var(--rule);
+    margin-top: 0.55rem;
+  }
+  .track i { display: block; height: 100%; background: var(--resin); }
+
+  /* ---------- notes ---------- */
+
+  .note {
+    position: relative;
+    border: 1px solid var(--rule-strong);
+    padding: 1.2rem 1.15rem 1rem;
+    margin: 1.9rem 0;
+  }
+  .note > p { margin-bottom: 0.7rem; }
+  .note > p:last-child { margin-bottom: 0; }
+  .note-label {
+    position: absolute;
+    top: 0;
+    left: 0.9rem;
+    transform: translateY(-50%);
+    background: var(--paper);
+    padding: 0 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--resin);
+  }
+
+  /* ---------- steps ---------- */
+
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.1rem;
+  }
+  ol.steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2.1rem 1fr;
+    gap: 0 0.65rem;
+    align-items: start;
+  }
+  ol.steps li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--resin);
+    padding-top: 0.22rem;
+  }
+  ol.steps li > b {
+    grid-column: 2;
+    font-family: var(--display);
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+  ol.steps li > span {
+    grid-column: 2;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- misc lists ---------- */
+
+  ul.plain { margin: 1rem 0; padding-left: 1.1rem; }
+  ul.plain li { margin-bottom: 0.45rem; max-width: 64ch; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
+  .chips li {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 0.2rem 0.5rem;
+    color: var(--ink-2);
+  }
+
+  dl.defs { margin: 1.25rem 0 0; display: grid; gap: 0.9rem; }
+  dl.defs > div { display: grid; gap: 0.15rem; }
+  dl.defs dt { font-family: var(--mono); font-size: 0.78rem; color: var(--resin); }
+  dl.defs dd { margin: 0; color: var(--ink-2); font-size: 0.95rem; max-width: 62ch; }
+
+  footer {
+    border-top: 1px solid var(--rule-strong);
+    background: var(--surface);
+  }
+  footer .wrap {
+    padding-block: 1.6rem 2.2rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+  }
+  footer p { max-width: none; margin: 0; }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Vintage Story&nbsp;· mod guide</p>
+    <h1>SapTap</h1>
+    <p class="standfirst">Hammer a metal spile into a resin-oozing pine or acacia trunk, hang an ordinary wooden bucket from its hook, and come back when the sap has run.</p>
+    <ul class="meta">
+      <li><b>v1.1.0</b></li>
+      <li>Requires <b>Vintage Story 1.22+</b></li>
+      <li>by <b>Feyd</b></li>
+      <li><a href="https://github.com/joyedit/SapTap">github.com/joyedit/SapTap</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="specs">
+  <div><span class="n">4</span><span class="l">taps per craft</span></div>
+  <div><span class="n">2</span><span class="l">taps per tree, maximum</span></div>
+  <div><span class="n">10 <em>L</em></span><span class="l">bucket capacity</span></div>
+  <div><span class="n">0.5 <em>L/h</em></span><span class="l">base rate, in-game hours</span></div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <section>
+      <h2>What the mod adds</h2>
+      <p>One new block, in thirteen metals: a <em class="term">sap tap</em> — a real spile, with a tapered tip that bites into the bark, a collar that seats against the trunk, a tube with a hammered band and a drip lip, and a hook rod underneath.</p>
+      <p>The bucket is not part of the tap model. When you hang one, the block entity tessellates the actual vanilla <code>woodbucket</code> mesh and drops it onto the hook, so what hangs there is the same bucket you were holding — bail, staves, iron rings and all. It also means any modded bucket that follows the vanilla pattern hangs correctly.</p>
+      <p>Nothing in vanilla is overridden. Resin logs still harvest by hand exactly as before; the tap is an alternative that trades waiting for a much larger yield per tree.</p>
+    </section>
+
+    <section>
+      <h2>Crafting a tap</h2>
+      <p>Shapeless, in any crafting grid. The three items can sit in any slots, in any order:</p>
+
+      <div class="recipe">
+        <div class="slot"><b>Hammer</b><span>any allowed metal</span></div>
+        <div class="op">+</div>
+        <div class="slot"><b>Metal plate<br>or sheet</b><span>the tap's metal</span></div>
+        <div class="op">+</div>
+        <div class="slot"><b>Chisel</b><span>any allowed metal</span></div>
+        <div class="op">→</div>
+        <div class="slot out"><b>4 sap taps</b><span>of that metal</span></div>
+      </div>
+
+      <p>Either stock works: the smithed <strong>metal plate</strong> item (<code>metalplate-&lt;metal&gt;</code>) or the <strong>metal sheet</strong> block (<code>metalsheet-&lt;metal&gt;</code>). They look almost identical in the inventory, so the recipe accepts both. Only the plate has a vanilla crafting route — sheets are loot and worldgen only — so the plate is the repeatable survival option.</p>
+
+      <h3>Tool hardness</h3>
+      <p>Working the stock needs a hammer <strong>and</strong> a chisel at least as hard as the metal being worked. The two tools need not match each other. Neither is consumed; each craft costs <strong>8 durability</strong> off both.</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Which tools cut which stock</caption>
+          <thead>
+            <tr><th scope="col">Stock metal</th><th scope="col">Hammer and chisel must be</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Copper, tin bronze, bismuth bronze, black bronze, brass, gold, silver, lead, bismuth, molybdochalkos</td>
+              <td>tin / bismuth / black bronze, iron, meteoric iron or steel</td>
+            </tr>
+            <tr>
+              <td>Iron, meteoric iron</td>
+              <td>iron, meteoric iron or steel</td>
+            </tr>
+            <tr>
+              <td>Steel</td>
+              <td>steel</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <span class="note-label">Watch for</span>
+        <p><strong>Copper hammers and chisels cannot make any tap at all</strong> — not even a copper one. Copper shares its tool tier with gold and silver, which is not hard enough to cut plate. Bronze is the earliest tooling that works.</p>
+      </div>
+
+      <h3>Available metals</h3>
+      <p>Thirteen, each taking its colour from that metal's ingot texture. The metal is cosmetic — a lead tap collects exactly as fast as a steel one.</p>
+      <ul class="chips">
+        <li>copper</li><li>tinbronze</li><li>bismuthbronze</li><li>blackbronze</li><li>brass</li><li>gold</li><li>silver</li><li>lead</li><li>bismuth</li><li>molybdochalkos</li><li>iron</li><li>meteoriciron</li><li>steel</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Tapping a tree</h2>
+
+      <ol class="steps">
+        <li><b>Find a log that is oozing resin.</b><span>Vanilla pine and acacia grow them — the blocks whose code starts <code>log-resin-</code>. A plain log will not take a tap.</span></li>
+        <li><b>Right-click the side of that log with a tap in hand.</b><span>Only the four vertical faces; you cannot tap the top or bottom of a trunk. The tap intercepts the click, so the log's usual hand-harvest does not fire instead.</span></li>
+        <li><b>Right-click the tap with an empty wooden bucket.</b><span>It hangs from the hook and collection starts from that moment. The bucket must be genuinely empty.</span></li>
+        <li><b>Wait.</b><span>Looking at the tap shows the litres collected so far and the season's current yield multiplier.</span></li>
+        <li><b>Right-click with an empty hand to take the bucket back.</b><span>The bucket returns to your hand and the sap comes with it as resin items — one resin per full litre.</span></li>
+      </ol>
+
+      <h3>The two-tap limit</h3>
+      <p>A tree accepts at most <strong>two taps</strong>. Connected trunk blocks are found by walking outward through the tree-felling group the game already assigns to grown trees, so the limit is genuinely per tree rather than per resin patch — moving up the same trunk to a different resin block will not get you a third. Player-placed logs carry no felling group, so those fall back to matching wood type.</p>
+
+      <h3>What can block a placement</h3>
+      <div class="tablewrap">
+        <table>
+          <caption>In-game errors</caption>
+          <thead>
+            <tr><th scope="col">Message</th><th scope="col">Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Sap taps only go into a log that is oozing resin.</td><td>The target is not a resin log.</td></tr>
+            <tr><td>There is no room in front of the log for a sap tap.</td><td>The block the tap would occupy is solid and not replaceable.</td></tr>
+            <tr><td>This tree already carries the maximum of 2 sap taps.</td><td>Two taps are already somewhere on this trunk.</td></tr>
+            <tr><td>Only an empty bucket can be hung on a sap tap.</td><td>What you are holding is not a liquid-container bucket.</td></tr>
+            <tr><td>Empty the bucket before hanging it on a sap tap.</td><td>The bucket has something in it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:1rem">Land claims are respected — placing a tap needs build access at that position.</p>
+    </section>
+
+    <section>
+      <h2>How fast it fills</h2>
+      <p>The base rate is <strong>0.5 litres per in-game hour</strong> into a 10-litre bucket, multiplied by the season the game calendar reports <em class="term">at the tap's own position</em> — so it is hemisphere-aware, and a tap in the southern hemisphere runs on the opposite schedule to one in the north.</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Seasonal yield</caption>
+          <thead>
+            <tr>
+              <th scope="col">Season</th>
+              <th scope="col" class="num">Yield</th>
+              <th scope="col" class="num">Rate</th>
+              <th scope="col">In-game hours to fill 10 L</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Spring</td><td class="num">1.5×</td><td class="num">0.75 L/h</td>
+              <td class="num">~13 <span class="track"><i style="width:100%"></i></span></td>
+            </tr>
+            <tr>
+              <td>Summer</td><td class="num">1.0×</td><td class="num">0.50 L/h</td>
+              <td class="num">20 <span class="track"><i style="width:66.7%"></i></span></td>
+            </tr>
+            <tr>
+              <td>Autumn</td><td class="num">0.5×</td><td class="num">0.25 L/h</td>
+              <td class="num">40 <span class="track"><i style="width:33.3%"></i></span></td>
+            </tr>
+            <tr>
+              <td>Winter</td><td class="num">0.25×</td><td class="num">0.125 L/h</td>
+              <td class="num">80 <span class="track"><i style="width:16.7%"></i></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:1.25rem">Sap accrues against the world calendar, not against real time, and the tap keeps its last-updated timestamp when the chunk unloads. Leave the area, come back a week later, and the elapsed hours are credited on the next tick — you do not have to stand there.</p>
+
+      <div class="note">
+        <span class="note-label">Note</span>
+        <p>That catch-up is applied at whatever the rate is when the chunk loads again. A bucket left through the winter and collected on the first day of spring is credited at the spring rate for the whole stretch — and the reverse is true too, so collecting the moment a good season ends is worth doing.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Collecting</h2>
+      <p>Right-click the tap with an <strong>empty hand</strong>. The bucket goes back to your hand first, then the resin is handed over — one item per full litre. If your inventory is full, the resin drops at the tap rather than vanishing.</p>
+      <p>Take a bucket early and the game tells you what you got: <em class="term">"The bucket is not full yet: 6.4 / 10 litres."</em> A full one reports <em class="term">"Collected 10 resin from the sap tap."</em></p>
+
+      <div class="note">
+        <span class="note-label">Watch for</span>
+        <p><strong>Partial litres are lost.</strong> Taking the bucket down pays out only whole litres and resets the tap to zero — at 6.4 litres you get 6 resin and the remaining 0.4 is gone. There is no way to peek and re-hang without paying that cost, so let it finish where you can.</p>
+      </div>
+
+      <p>Breaking a tap that has a bucket on it is safe: both the bucket and the sap collected so far drop as items. The tap itself always drops as the plain north-facing variant, so a broken tap can be re-placed on any face.</p>
+    </section>
+
+    <section>
+      <h2>Reference</h2>
+      <dl class="defs">
+        <div>
+          <dt>saptap:saptap-&lt;metal&gt;-&lt;side&gt;</dt>
+          <dd>Block code. <code>side</code> names the direction from the tap <em>towards</em> the tree, and rotates the shape; all thirteen metals share one handbook entry.</dd>
+        </div>
+        <div>
+          <dt>game:resin</dt>
+          <dd>What a tap pays out. One per full litre of sap.</dd>
+        </div>
+        <div>
+          <dt>Bucket detection</dt>
+          <dd>Any block whose code contains <code>bucket</code> and which declares <code>liquidContainerProps</code>. Modded buckets that follow the vanilla pattern work without a patch.</dd>
+        </div>
+        <div>
+          <dt>Creative &amp; handbook</dt>
+          <dd>Taps appear in both the general and decorative creative tabs, north-facing variant only.</dd>
+        </div>
+      </dl>
+
+      <h3>Not in yet</h3>
+      <ul class="plain">
+        <li>The sap level rising visibly inside the hanging bucket</li>
+        <li>A proper sap liquid instead of handing out resin items</li>
+        <li>Dripping particles at the drip lip</li>
+        <li>Tree health — heavily tapped trees yielding less over time</li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>SapTap v1.1.0 · built for Vintage Story 1.22 · by Feyd</p>
+  </div>
+</footer>

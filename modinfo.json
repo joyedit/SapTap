@@ -2,10 +2,11 @@
   "type": "code",
   "modid": "saptap",
   "name": "SapTap",
+  "website": "https://github.com/joyedit/SapTap",
   "authors": ["Feyd"],
-  "description": "Adds craftable copper sap taps for harvesting sap from pine trees. Attach a bucket, wait for it to fill, and collect. Features seasonal collection rates and a two-tap-per-tree limit.",
-  "version": "1.0.0",
+  "description": "Adds craftable metal sap taps for harvesting resin from oozing pine and acacia logs. Hammer a spile into the trunk, hang an ordinary wooden bucket from its hook, and come back once it has filled. A metal plate or sheet, worked with a hammer and chisel at least as hard as it, yields four taps in any of thirteen metals (copper tools are too soft for any of them). Collection rates follow the seasons, and each tree accepts at most two taps.",
+  "version": "1.1.0",
   "dependencies": {
-    "game": "1.19.0"
+    "game": "1.22.0"
   }
 }

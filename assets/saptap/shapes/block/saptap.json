@@ -1,0 +1,713 @@
+{
+  "editor": {
+    "allAngles": false,
+    "singleTexture": true
+  },
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textures": {
+    "metal": "game:block/metal/ingot/copper"
+  },
+  "elements": [
+    {
+      "name": "tip",
+      "comment": "Pointed tip, driven into the drilled hole",
+      "from": [
+        7.6,
+        12.6,
+        -3.0
+      ],
+      "to": [
+        8.4,
+        13.4,
+        -1.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            0.8
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.4,
+            0.8
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            0.8
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.4,
+            0.8
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            1.4
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            1.4
+          ]
+        }
+      }
+    },
+    {
+      "name": "spike",
+      "comment": "Tapered shank inside the bark",
+      "from": [
+        7.2,
+        12.2,
+        -2.0
+      ],
+      "to": [
+        8.8,
+        13.8,
+        1.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.6,
+            1.6
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            1.6
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.6,
+            1.6
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            1.6
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.6,
+            3.0
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.6,
+            3.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "flange",
+      "comment": "Collar that seats against the bark",
+      "from": [
+        6.0,
+        11.0,
+        0.6
+      ],
+      "to": [
+        10.0,
+        15.0,
+        1.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            4.0,
+            4.0
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            4.0
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            4.0,
+            4.0
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            4.0
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            4.0,
+            0.8
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            4.0,
+            0.8
+          ]
+        }
+      }
+    },
+    {
+      "name": "barrel",
+      "comment": "Main tube the sap runs through",
+      "from": [
+        6.5,
+        11.5,
+        0.8
+      ],
+      "to": [
+        9.5,
+        14.5,
+        5.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            3.0
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            4.8,
+            3.0
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            3.0
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            4.8,
+            3.0
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            4.8
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.0,
+            4.8
+          ]
+        }
+      }
+    },
+    {
+      "name": "band",
+      "comment": "Raised band, hammer struck here",
+      "from": [
+        6.2,
+        11.2,
+        3.2
+      ],
+      "to": [
+        9.8,
+        14.8,
+        4.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            3.6
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            3.6
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            3.6
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            3.6
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            0.8
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            0.8
+          ]
+        }
+      }
+    },
+    {
+      "name": "mouth",
+      "comment": "Flared outer end",
+      "from": [
+        6.2,
+        11.2,
+        5.2
+      ],
+      "to": [
+        9.8,
+        14.8,
+        6.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            3.6
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.2,
+            3.6
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            3.6
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.2,
+            3.6
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            1.2
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            3.6,
+            1.2
+          ]
+        }
+      }
+    },
+    {
+      "name": "lip",
+      "comment": "Drip lip, sap falls from here",
+      "from": [
+        7.0,
+        10.6,
+        6.0
+      ],
+      "to": [
+        9.0,
+        11.6,
+        7.2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            1.0
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.2,
+            1.0
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            1.0
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.2,
+            1.0
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            1.2
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            2.0,
+            1.2
+          ]
+        }
+      }
+    },
+    {
+      "name": "hookstem",
+      "comment": "Drop from the tube down to the hook",
+      "from": [
+        7.6,
+        9.8,
+        3.8
+      ],
+      "to": [
+        8.4,
+        12.0,
+        5.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            2.2
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.2,
+            2.2
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            2.2
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.2,
+            2.2
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            1.2
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            1.2
+          ]
+        }
+      }
+    },
+    {
+      "name": "hookarm",
+      "comment": "Rod the bucket bail rests on",
+      "from": [
+        7.5,
+        9.5,
+        4.2
+      ],
+      "to": [
+        8.5,
+        10.5,
+        9.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            5.4,
+            1.0
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            5.4,
+            1.0
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            5.4
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            5.4
+          ]
+        }
+      }
+    },
+    {
+      "name": "hookbarb",
+      "comment": "Upturned barb, stops the bail sliding off",
+      "from": [
+        7.6,
+        10.0,
+        8.6
+      ],
+      "to": [
+        8.4,
+        12.2,
+        9.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            2.2
+          ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            2.2
+          ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            2.2
+          ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            1.0,
+            2.2
+          ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            1.0
+          ]
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [
+            0.0,
+            0.0,
+            0.8,
+            1.0
+          ]
+        }
+      }
+    }
+  ]
+}

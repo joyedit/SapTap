@@ -20,3 +20,8 @@ obj/
 *.suo
 .vs/
 .DS_Store
+
+# Screenshots, stock photos and store art kept locally (root level only,
+# so asset textures under assets/ are unaffected)
+/*.png
+/*.jpg

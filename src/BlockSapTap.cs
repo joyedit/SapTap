@@ -1,237 +1,327 @@
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 
 namespace SapTap
 {
+    /// <summary>
+    /// A sap spile: a small metal tube hammered into a resin-oozing log, with a hook
+    /// underneath that a wooden bucket hangs from.
+    /// </summary>
     public class BlockSapTap : Block
     {
-        private const int MaxTapsPerTree = 2;
+        public const int MaxTapsPerTree = 2;
 
+        /// <summary>How far the search for other taps may spread through one tree.</summary>
+        private const int TreeSearchLimit = 400;
+
+        private WorldInteraction[] interactions;
+
+        /// <summary>
+        /// The horizontal direction from the tap towards the log it is driven into.
+        /// The shape is authored for "north", so this is also what the shape rotation keys off.
+        /// </summary>
+        public BlockFacing AttachedSide => BlockFacing.FromCode(Variant["side"]) ?? BlockFacing.NORTH;
+
+        public override void OnLoaded(ICoreAPI api)
+        {
+            base.OnLoaded(api);
+
+            if (api is ICoreClientAPI capi)
+            {
+                const string cacheKey = "saptapInteractions";
+                if (api.ObjectCache.TryGetValue(cacheKey, out object cached))
+                {
+                    interactions = (WorldInteraction[])cached;
+                }
+                else
+                {
+                    List<ItemStack> buckets = new List<ItemStack>();
+                    foreach (Block block in api.World.Blocks)
+                    {
+                        if (block?.Code != null && IsBucket(block)) buckets.Add(new ItemStack(block));
+                    }
+
+                    interactions = new WorldInteraction[]
+                    {
+                        new WorldInteraction
+                        {
+                            ActionLangCode = "saptap:blockhelp-hangbucket",
+                            MouseButton = EnumMouseButton.Right,
+                            Itemstacks = buckets.ToArray(),
+                            GetMatchingStacks = (wi, bs, es) =>
+                            {
+                                BlockEntitySapTap be = capi.World.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySapTap;
+                                return be?.BucketStack == null ? wi.Itemstacks : null;
+                            }
+                        },
+                        new WorldInteraction
+                        {
+                            ActionLangCode = "saptap:blockhelp-takebucket",
+                            MouseButton = EnumMouseButton.Right,
+                            RequireFreeHand = true,
+                            ShouldApply = (wi, bs, es) =>
+                            {
+                                BlockEntitySapTap be = capi.World.BlockAccessor.GetBlockEntity(bs.Position) as BlockEntitySapTap;
+                                return be?.BucketStack != null;
+                            }
+                        }
+                    };
+
+                    api.ObjectCache[cacheKey] = interactions;
+                }
+            }
+        }
+
+        public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer)
+        {
+            return (interactions ?? new WorldInteraction[0]).Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));
+        }
+
+        #region Placement
+
+        // Placement runs through OnHeldInteractStart rather than the default block placement
+        // path, because a resin log's own harvest interaction would otherwise swallow the click.
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling)
         {
             if (blockSel == null) return;
-            
+
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
             if (byPlayer == null) return;
 
-            IWorldAccessor world = byEntity.Api.World;
-            Block clickedBlock = world.BlockAccessor.GetBlock(blockSel.Position);
-            
-            // Log on server side
-            if (world.Side == EnumAppSide.Server)
-            {
-                world.Api.Logger.Notification($"[SapTap OnHeldInteractStart] Clicked on: {clickedBlock?.Code}");
-            }
+            IWorldAccessor world = byEntity.World;
+            BlockPos tapPos = blockSel.Position.AddCopy(blockSel.Face);
 
-            // Check if it's a resin log
-            if (!IsValidSapSource(clickedBlock))
+            string failureCode = null;
+            if (!CanTapHere(world, blockSel, ref failureCode))
             {
-                // Not a valid target, let default behavior happen
+                // Not a valid target: fall through to whatever the log itself does.
+                if (failureCode != null)
+                {
+                    handHandling = EnumHandHandling.PreventDefault;
+                    ShowError(world, failureCode);
+                }
                 return;
             }
 
-            // Check if tree already has max taps
-            if (GetTapCountOnTree(world, blockSel.Position) >= MaxTapsPerTree)
+            if (!world.Claims.TryAccess(byPlayer, tapPos, EnumBlockAccessFlags.BuildOrBreak))
             {
-                if (world.Side == EnumAppSide.Client)
-                {
-                    (world.Api as ICoreClientAPI)?.ShowChatMessage("This tree already has the maximum number of taps.");
-                }
                 handHandling = EnumHandHandling.PreventDefault;
                 return;
             }
 
-            // Try to place the tap
-            BlockPos tapPos = blockSel.Position.AddCopy(blockSel.Face);
-            Block blockAtPos = world.BlockAccessor.GetBlock(tapPos);
-            
-            if (blockAtPos.Id != 0 && !blockAtPos.IsReplacableBy(this))
-            {
-                // Not air/replaceable
-                return;
-            }
+            // "side" points from the tap back towards the log.
+            Block orientedBlock = world.GetBlock(CodeWithVariant("side", blockSel.Face.Opposite.Code));
+            if (orientedBlock == null) return;
 
-            // Get the correct orientation and ensure it's the empty variant
-            string orientation = blockSel.Face.Opposite.Code;
-            Block orientedBlock = world.GetBlock(CodeWithVariants(new string[] { "side", "state" }, new string[] { orientation, "empty" }));
-            
-            if (orientedBlock == null)
-            {
-                orientedBlock = this;
-            }
-
-            // Place the block
             world.BlockAccessor.SetBlock(orientedBlock.BlockId, tapPos);
             world.BlockAccessor.TriggerNeighbourBlockUpdate(tapPos);
-            
-            // Remove one tap from player's inventory
-            slot.TakeOut(1);
-            slot.MarkDirty();
-            
-            if (world.Side == EnumAppSide.Server)
+            if (orientedBlock.Sounds != null)
             {
-                world.Api.Logger.Notification($"[SapTap] Placed tap at {tapPos}");
+                world.PlaySoundAt(orientedBlock.Sounds.Place, tapPos, 0, byPlayer);
             }
 
-            // Prevent the resin harvesting interaction
+            if (byPlayer.WorldData.CurrentGameMode != EnumGameMode.Creative)
+            {
+                slot.TakeOut(1);
+                slot.MarkDirty();
+            }
+
             handHandling = EnumHandHandling.PreventDefault;
-        }
-
-        public override bool CanPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref string failureCode)
-        {
-            // Allow placement attempt - we'll validate in TryPlaceBlock
-            Block clickedBlock = world.BlockAccessor.GetBlock(blockSel.Position);
-            
-            if (world.Side == EnumAppSide.Server)
-            {
-                world.Api.Logger.Notification($"[SapTap CanPlaceBlock] Clicked on: {clickedBlock?.Code}");
-            }
-            
-            return true;
         }
 
         public override bool TryPlaceBlock(IWorldAccessor world, IPlayer byPlayer, ItemStack itemstack, BlockSelection blockSel, ref string failureCode)
         {
-            // Check if we're clicking on a valid resin log
-            Block clickedBlock = world.BlockAccessor.GetBlock(blockSel.Position);
-            
-            // Debug output
-            if (world.Side == EnumAppSide.Server)
+            // Reached only via paths that bypass OnHeldInteractStart. Keep the same rules so a
+            // tap can never end up on a block that has no sap in it.
+            if (!CanTapHere(world, blockSel, ref failureCode))
             {
-                world.Api.Logger.Notification($"[SapTap] Clicked on: {clickedBlock?.Code}");
-            }
-
-            // Check if it's a pine tree log with resin
-            if (!IsValidSapSource(clickedBlock))
-            {
-                if (world.Side == EnumAppSide.Server)
-                {
-                    world.Api.Logger.Notification($"[SapTap] Not a valid sap source");
-                }
-                failureCode = "requiressappinelog";
+                failureCode = failureCode ?? "saptap-requiresresinlog";
                 return false;
             }
 
-            if (world.Side == EnumAppSide.Server)
-            {
-                world.Api.Logger.Notification($"[SapTap] Valid sap source!");
-            }
+            return base.TryPlaceBlock(world, byPlayer, itemstack, blockSel, ref failureCode);
+        }
 
-            // Check if tree already has max taps
-            if (GetTapCountOnTree(world, blockSel.Position) >= MaxTapsPerTree)
+        /// <summary>
+        /// Validates a click on a log: the target must ooze resin, the space in front of it must
+        /// be free, and the tree must not already carry <see cref="MaxTapsPerTree"/> taps.
+        /// A null failureCode means "not our business", anything else is worth telling the player.
+        /// </summary>
+        private bool CanTapHere(IWorldAccessor world, BlockSelection blockSel, ref string failureCode)
+        {
+            if (blockSel.Face.IsVertical)
             {
-                failureCode = "treehasmaxtaps";
+                // Only the trunk sides can be tapped.
+                failureCode = null;
                 return false;
             }
 
-            // Determine where to place the tap (air adjacent to the log)
+            Block logBlock = world.BlockAccessor.GetBlock(blockSel.Position);
+            if (!IsSapSource(logBlock))
+            {
+                failureCode = null;
+                return false;
+            }
+
             BlockPos tapPos = blockSel.Position.AddCopy(blockSel.Face);
-            
-            // Check if that position is air/replaceable
-            Block blockAtPos = world.BlockAccessor.GetBlock(tapPos);
-            if (blockAtPos.Id != 0 && !blockAtPos.IsReplacableBy(this))
+            Block atTapPos = world.BlockAccessor.GetBlock(tapPos);
+            if (atTapPos.Id != 0 && !atTapPos.IsReplacableBy(this))
             {
-                failureCode = "notair";
+                failureCode = "saptap-noroom";
                 return false;
             }
 
-            // Get the correct orientation based on which face was clicked
-            string orientation = blockSel.Face.Opposite.Code; // Tap faces away from the wall
-            Block orientedBlock = world.GetBlock(CodeWithVariant("side", orientation));
-            
-            if (orientedBlock == null)
+            if (CountTapsOnTree(world, blockSel.Position) >= MaxTapsPerTree)
             {
-                if (world.Side == EnumAppSide.Server)
-                {
-                    world.Api.Logger.Warning($"[SapTap] Could not find variant with orientation: {orientation}");
-                }
-                orientedBlock = this;
-            }
-
-            // Place the block
-            world.BlockAccessor.SetBlock(orientedBlock.BlockId, tapPos);
-            world.BlockAccessor.TriggerNeighbourBlockUpdate(tapPos);
-            
-            if (world.Side == EnumAppSide.Server)
-            {
-                world.Api.Logger.Notification($"[SapTap] Placed tap at {tapPos}");
+                failureCode = "saptap-treehasmaxtaps";
+                return false;
             }
 
             return true;
         }
 
-        private bool IsValidSapSource(Block block)
+        private void ShowError(IWorldAccessor world, string failureCode)
         {
-            if (block == null) return false;
+            if (world.Side != EnumAppSide.Client) return;
 
-            // Check if it's a leaking pine log with resin
-            string blockCode = block.Code.ToString().ToLower();
-            
-            // Must be a pine log AND have resin
-            if (blockCode.Contains("log") && blockCode.Contains("pine") && blockCode.Contains("resin"))
-            {
-                return true;
-            }
+            string message = failureCode == "saptap-treehasmaxtaps"
+                ? Lang.Get("saptap:error-treehasmaxtaps", MaxTapsPerTree)
+                : Lang.Get("saptap:error-noroom");
 
-            return false;
+            (world.Api as ICoreClientAPI)?.TriggerIngameError(this, failureCode, message);
         }
 
-        private int GetTapCountOnTree(IWorldAccessor world, BlockPos treePos)
+        #endregion
+
+        #region Tree inspection
+
+        /// <summary>True for a log that is currently oozing resin (vanilla: pine and acacia).</summary>
+        public static bool IsSapSource(Block block)
         {
-            int tapCount = 0;
-            HashSet<BlockPos> checkedPositions = new HashSet<BlockPos>();
-            Queue<BlockPos> toCheck = new Queue<BlockPos>();
-            
-            toCheck.Enqueue(treePos);
-            checkedPositions.Add(treePos);
+            if (block?.Code == null) return false;
 
-            // Search connected tree blocks
-            while (toCheck.Count > 0 && checkedPositions.Count < 100) // Limit search size
+            string path = block.Code.Path;
+            return path.StartsWithOrdinal("log-resin-");
+        }
+
+        /// <summary>
+        /// Walks the tree the given log belongs to and counts the sap taps hanging off it.
+        /// Connected logs are found through the tree felling group vanilla already assigns to
+        /// grown trunks, so the limit really is per tree and not per resin patch.
+        /// </summary>
+        public static int CountTapsOnTree(IWorldAccessor world, BlockPos logPos)
+        {
+            Block startBlock = world.BlockAccessor.GetBlock(logPos);
+            string fellingGroup = TreeFellingGroup(startBlock);
+            string wood = startBlock?.Variant?["wood"];
+
+            HashSet<BlockPos> visited = new HashSet<BlockPos> { logPos.Copy() };
+            Queue<BlockPos> queue = new Queue<BlockPos>();
+            queue.Enqueue(logPos.Copy());
+
+            HashSet<BlockPos> countedTaps = new HashSet<BlockPos>();
+
+            while (queue.Count > 0 && visited.Count < TreeSearchLimit)
             {
-                BlockPos currentPos = toCheck.Dequeue();
-                Block currentBlock = world.BlockAccessor.GetBlock(currentPos);
+                BlockPos current = queue.Dequeue();
 
-                // Check all adjacent blocks for taps
                 foreach (BlockFacing facing in BlockFacing.ALLFACES)
                 {
-                    BlockPos adjacentPos = currentPos.AddCopy(facing);
-                    Block adjacentBlock = world.BlockAccessor.GetBlock(adjacentPos);
+                    BlockPos neighbourPos = current.AddCopy(facing);
+                    if (visited.Contains(neighbourPos)) continue;
 
-                    // Count taps
-                    if (adjacentBlock is BlockSapTap)
+                    Block neighbour = world.BlockAccessor.GetBlock(neighbourPos);
+
+                    if (neighbour is BlockSapTap)
                     {
-                        tapCount++;
+                        countedTaps.Add(neighbourPos);
+                        continue;
                     }
 
-                    // Continue searching tree
-                    if (!checkedPositions.Contains(adjacentPos) && IsValidSapSource(adjacentBlock))
+                    if (IsSameTree(neighbour, fellingGroup, wood))
                     {
-                        toCheck.Enqueue(adjacentPos);
-                        checkedPositions.Add(adjacentPos);
+                        visited.Add(neighbourPos);
+                        queue.Enqueue(neighbourPos);
                     }
                 }
             }
 
-            return tapCount;
+            return countedTaps.Count;
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1)
+        private static bool IsSameTree(Block block, string fellingGroup, string wood)
         {
-            base.OnBlockBroken(world, pos, byPlayer, dropQuantityMultiplier);
+            if (block?.Code == null || !block.Code.Path.StartsWithOrdinal("log")) return false;
+
+            string group = TreeFellingGroup(block);
+            if (fellingGroup != null && group != null) return group == fellingGroup;
+
+            // Player-placed logs carry no felling group; fall back to matching the wood type.
+            return wood != null && block.Variant?["wood"] == wood;
         }
+
+        private static string TreeFellingGroup(Block block)
+        {
+            return block?.Attributes?["treeFellingGroupCode"].AsString();
+        }
+
+        public static bool IsBucket(Block block)
+        {
+            if (block?.Code == null) return false;
+            if (!block.Code.Path.Contains("bucket")) return false;
+
+            // Vanilla buckets (and modded ones that follow the pattern) declare their capacity here.
+            return block.Attributes?["liquidContainerProps"].Exists == true;
+        }
+
+        #endregion
+
+        #region Interaction and boxes
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             BlockEntitySapTap be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntitySapTap;
-            if (be != null)
-            {
-                return be.OnInteract(byPlayer);
-            }
+            if (be != null && be.OnInteract(byPlayer)) return true;
 
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
+
+        public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
+        {
+            BlockEntitySapTap be = blockAccessor.GetBlockEntity(pos) as BlockEntitySapTap;
+            if (be?.BucketStack != null)
+            {
+                // Grow the box so the hanging bucket itself is clickable.
+                return new[] { BoxFacing(AttachedSide, 0.18f, 0.82f, 0f, 0.83f, 0.01f, 0.96f) };
+            }
+
+            return new[] { BoxFacing(AttachedSide, 0.34f, 0.66f, 0f, 0.63f, 0.55f, 0.96f) };
+        }
+
+        /// <summary>
+        /// Builds a box from the tap's own frame of reference, so it follows the block without
+        /// depending on which way a rotation happens to turn. "out" is measured from the bark
+        /// plane along the direction the tube points, "perp" is the axis parallel to the bark.
+        /// </summary>
+        private static Cuboidf BoxFacing(BlockFacing side, float perpMin, float perpMax, float outMin, float outMax, float yMin, float yMax)
+        {
+            if (side == BlockFacing.NORTH) return new Cuboidf(perpMin, yMin, outMin, perpMax, yMax, outMax);
+            if (side == BlockFacing.SOUTH) return new Cuboidf(perpMin, yMin, 1 - outMax, perpMax, yMax, 1 - outMin);
+            if (side == BlockFacing.WEST) return new Cuboidf(outMin, yMin, perpMin, outMax, yMax, perpMax);
+            return new Cuboidf(1 - outMax, yMin, perpMin, 1 - outMin, yMax, perpMax);
+        }
+
+        public override ItemStack OnPickBlock(IWorldAccessor world, BlockPos pos)
+        {
+            Block northVariant = world.GetBlock(CodeWithVariant("side", "north"));
+            return new ItemStack(northVariant ?? this);
+        }
+
+        #endregion
     }
 }

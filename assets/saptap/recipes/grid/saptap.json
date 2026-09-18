@@ -1,11 +1,1136 @@
-{
-  "ingredientPattern": "P_,MI",
-  "ingredients": {
-    "P": { "type": "item", "code": "game:ingot-copper" },
-    "M": { "type": "item", "code": "game:ingot-copper" },
-    "I": { "type": "item", "code": "game:ingot-copper" }
+// Two recipes per output metal: one taking the smithed metal plate ITEM
+// (game:metalplate-<metal>), one taking the metal sheet BLOCK
+// (game:metalsheet-<metal>-<side>). They look nearly identical in the inventory,
+// so accept either.
+//
+// Do NOT collapse these with a `name:` wildcard binding on the stock ingredient:
+// when the game expands such a recipe per variant it clears allowedVariants on
+// EVERY ingredient, silently disabling the hammer/chisel hardness gate.
+[
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-copper"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-copper-north",
+      "quantity": 4
+    }
   },
-  "width": 2,
-  "height": 2,
-  "output": { "type": "block", "code": "saptap-north-empty", "quantity": 2 }
-}
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-copper-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-copper-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-tinbronze"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-tinbronze-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-tinbronze-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-tinbronze-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-bismuthbronze"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-bismuthbronze-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-bismuthbronze-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-bismuthbronze-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-blackbronze"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-blackbronze-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-blackbronze-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-blackbronze-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-brass"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-brass-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-brass-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-brass-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-gold"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-gold-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-gold-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-gold-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-silver"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-silver-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-silver-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-silver-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-lead"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-lead-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-lead-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-lead-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-bismuth"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-bismuth-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-bismuth-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-bismuth-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-molybdochalkos"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-molybdochalkos-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-molybdochalkos-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "tinbronze",
+          "bismuthbronze",
+          "blackbronze",
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-molybdochalkos-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-iron"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-iron-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-iron-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-iron-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-meteoriciron"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-meteoriciron-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-meteoriciron-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "iron",
+          "meteoriciron",
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-meteoriciron-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "item",
+        "code": "game:metalplate-steel"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-steel-north",
+      "quantity": 4
+    }
+  },
+  {
+    "ingredientPattern": "HPC",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "steel"
+        ]
+      },
+      "P": {
+        "type": "block",
+        "code": "game:metalsheet-steel-*"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true,
+        "toolDurabilityCost": 8,
+        "allowedVariants": [
+          "steel"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+      "type": "block",
+      "code": "saptap:saptap-steel-north",
+      "quantity": 4
+    }
+  }
+]

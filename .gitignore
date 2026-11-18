@@ -25,3 +25,10 @@ obj/
 # so asset textures under assets/ are unaffected)
 /*.png
 /*.jpg
+
+# Player reply drafts are never committed. They are written for pasting onto
+# the ModDB, not for people reading the source.
+docs/replies/
+replies/
+*-reply-*.md
+*-replies-*.md
